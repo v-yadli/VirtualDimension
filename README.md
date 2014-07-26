@@ -1,4 +1,4 @@
-VirtualDimension
+Virtual Dimension
 ================
 
 fork, modification of the Virtual Dimension, for personal use.
