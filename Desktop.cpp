@@ -107,7 +107,7 @@ HMENU Desktop::BuildMenu()
 
    for(it = winMan->GetIterator(); it; it++)
    {
-      TCHAR buffer[100];
+      TCHAR buffer[52];
 	  DWORD_PTR res;
       Window * win = it;
 

@@ -233,7 +233,7 @@ protected:
    bool m_autopos;
    bool m_autodesk;
 
-   TCHAR m_className[30];
+   TCHAR m_className[32];
    HICON m_hIcon;
    HICON m_hDefaulIcon;
 

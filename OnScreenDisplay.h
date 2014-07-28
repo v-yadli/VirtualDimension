@@ -51,7 +51,7 @@ public:
 protected:
    HWND m_hWnd;
 
-   TCHAR m_text[50];
+   TCHAR m_text[52];
    int m_timeout;
 
    int m_lastTimeout;

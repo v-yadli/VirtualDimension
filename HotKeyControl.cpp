@@ -34,7 +34,7 @@ void InitHotkeyControl()
 typedef struct HKControl {
    int key;
    char  flags;
-   TCHAR text[80];
+   TCHAR text[40];
    DWORD dwCharY;
 } HKControl;
 
@@ -78,9 +78,9 @@ static void BuildDisplayString(char mods, char vk, short scancode, TCHAR* str, s
 
    if (scancode == 0)
       scancode = (short)MapVirtualKey(vk, 0);
-   TCHAR keyName[40];
+   TCHAR keyName[20];
    SecureZeroMemory(keyName, sizeof(keyName));
-   GetKeyNameText(scancode << 16, keyName, 40);
+   GetKeyNameText(scancode << 16, keyName, 20);
    _tcsncat_s(str, bufLen, keyName, _TRUNCATE);
 }
 

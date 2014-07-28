@@ -95,7 +95,7 @@ ConfigurableHotkey* ShortcutsConfigurationDlg::GetItemHotkey(int index)
 
 void ShortcutsConfigurationDlg::SetItemShortcut(int index, int shortcut)
 {
-   TCHAR buffer[100];
+   TCHAR buffer[52];
    size_t bufSize = sizeof(buffer);
    SecureZeroMemory(buffer, bufSize);
    GetShortcutName(shortcut, buffer, bufSize/sizeof(TCHAR));
