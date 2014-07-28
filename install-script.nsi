@@ -10,6 +10,9 @@
   Name "Virtual Dimension"
   OutFile "VirtualDimension-Setup.exe"
 
+  ;Program Version
+  !define VERSION "0.94b"
+
   ;Default installation folder
   InstallDir "$PROGRAMFILES64\Virtual Dimension"
 
@@ -85,6 +88,9 @@ Section "MainSection" SEC01
   ;Create uninstaller
   ; Write the uninstall keys for Windows
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Virtual Dimension" "DisplayName" "Virtual Dimension"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Virtual Dimension" "DisplayIcon" '"$INSTDIR\VirtualDimension.exe"'
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Virtual Dimension" "DisplayVersion" ${VERSION}
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Virtual Dimension" "Publisher" "Typz Software"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Virtual Dimension" "UninstallString" '"$INSTDIR\Uninstall.exe"'
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Virtual Dimension" "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Virtual Dimension" "NoRepair" 1
