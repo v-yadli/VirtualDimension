@@ -116,7 +116,7 @@ HMENU Desktop::BuildMenu()
 
       SendMessageTimeout(*win, WM_GETTEXT, (WPARAM)sizeof(buffer), (LPARAM)buffer, SMTO_ABORTIFHUNG, 100, &res);
 
-      mii.dwItemData = (DWORD)win->GetIcon();
+      mii.dwItemData = (DWORD_PTR)win->GetIcon();
       mii.dwTypeData = buffer;
 	  mii.cch = (UINT)_tcslen(buffer);
       mii.wID = WM_USER+(int)win;	//this is not really clean, and could theoretically overflow...  no real problem, though...

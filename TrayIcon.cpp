@@ -121,7 +121,7 @@ void TrayIcon::OnContextMenu()
          mii.fState = MFS_CHECKED;
       else
          mii.fState = MFS_UNCHECKED;
-      mii.dwItemData = (DWORD)desk;
+      mii.dwItemData = (DWORD_PTR)desk;
       mii.dwTypeData = desk->GetText();
       mii.cch = (UINT)_tcslen(mii.dwTypeData);
       mii.wID = WM_USER + i++;
