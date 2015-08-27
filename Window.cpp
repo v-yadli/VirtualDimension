@@ -632,8 +632,8 @@ void Window::FlashWindow(void)
 {
    if (!IsOnCurrentDesk() && !IsWindowFlashing())
    {
-      m_BallonMsg = msgManager.Add(TEXT("This window requires attention!\r\nClick here to activate it."),
-                                   GetText(), (int)GetIcon(), &OnFlashBallonClick, (int)m_hWnd);
+      //m_BallonMsg = msgManager.Add(TEXT("This window requires attention!\r\nClick here to activate it."),
+      //                             GetText(), (int)GetIcon(), &OnFlashBallonClick, (int)m_hWnd);
    }
 }
 

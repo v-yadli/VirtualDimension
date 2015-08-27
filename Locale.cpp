@@ -38,7 +38,7 @@ Locale::Locale(void): m_currentLangCode(0), m_resDll(NULL)
     if (!SetLanguage(code))
     {
         // by default, it will stay with ENglish one
-        if (!SetLanguage(Locale::GetLanguageCode(TEXT("JP"))))
+        if (!SetLanguage(Locale::GetLanguageCode(TEXT("EN"))))
         {
             //TODO: try to find another resource library (maybe there is only langFR.dll)
             //TODO: if that fails, display error message (hardcoded in any language), and terminate application immediatly
