@@ -218,12 +218,29 @@ void Desktop::Draw(HDC hDc)
       if (!win->IsOnDesk(this))
          continue;
 
+      if (win->IsMetroApp())
+      {
+          obsoleteWindowsList.push_front(win);
+          continue;
+      }
+
       //Draw the window's icon
       hIcon = win->GetIcon();
+      if (hIcon == NULL)
+      {
+          //It should not be NULL. Let's mark it obsolete...
+          obsoleteWindowsList.push_front(win);
+          continue;
+      }
+
       DrawIconEx(hDc, x, y, hIcon, 16, 16, 0, NULL, DI_NORMAL);
 
       x += 16;
-      if (x > m_rect.right-16)
+      if (x > m_rect.right - 8)/* should be (right - 16) but it will cause the drawn icons to 
+                                * be wrapped, and the menu item be remained so that there will be
+                                * "empty" entries with clickable window, which should be the first
+                                * drawn icon in the next row.
+                                */
       {
          x = m_rect.left;
          y += 16;

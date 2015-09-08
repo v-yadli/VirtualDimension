@@ -5,15 +5,20 @@
 *.suo
 *.user
 *.sln.docstates
+*.sdf
 
 # Build results
 
 [Dd]ebug/
 [Rr]elease/
+Release*/
+Debug*/
 x64/
 build/
 [Bb]in/
 [Oo]bj/
+pingme.txt
+Full_Optimization/
 
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
 !packages/*/build/
