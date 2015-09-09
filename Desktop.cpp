@@ -173,7 +173,7 @@ void Desktop::UpdateLayout()
       tooltip->SetTool(win, &rect);
 
       x += 16;
-      if (x > m_rect.right-15)
+      if (x > m_rect.right - 16)
       {
          x = m_rect.left;
          y += 16;
@@ -236,11 +236,7 @@ void Desktop::Draw(HDC hDc)
       DrawIconEx(hDc, x, y, hIcon, 16, 16, 0, NULL, DI_NORMAL);
 
       x += 16;
-      if (x > m_rect.right - 8)/* should be (right - 16) but it will cause the drawn icons to 
-                                * be wrapped, and the menu item be remained so that there will be
-                                * "empty" entries with clickable window, which should be the first
-                                * drawn icon in the next row.
-                                */
+      if (x > m_rect.right - 16)
       {
          x = m_rect.left;
          y += 16;
@@ -267,6 +263,12 @@ Window* Desktop::GetWindowFromPoint(int X, int Y)
 {
    WindowsManager::Iterator it;
    int index;
+
+   if (X > m_rect.right - 16)
+   {
+       // There should be no icon at the current position
+       return NULL;
+   }
 
    index = ((X - m_rect.left) / 16) +
            ((m_rect.right-m_rect.left) / 16) * ((Y - m_rect.top) / 16);
