@@ -1,10 +1,9 @@
 Virtual Dimension
 ================
 
-fork, modification of Virtual Dimension, for personal use.
-
-Use Visual Studio 2013, to built this program easily.  
-Added support Unicode &amp; x64 Compile.
+A modern fork of the great Virtual Dimension.
 
 * Original author: Typz
 * Original software URI: http://virt-dimension.sourceforge.net/
+* Brought to a modern toolchain(VS2013) by HaijinW: https://github.com/HaijinW/VirtualDimension
+* Compatible with Windows 10
