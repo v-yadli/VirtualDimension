@@ -174,12 +174,13 @@ public:
     inline bool CheckExists() const { return IsWindow(m_hWnd) != 0; }
     inline bool IsMetroApp() const
     {
+        //return false;
         return !strncmp((const char*)m_className, (const char*)L"Windows.UI.Core.CoreWindow", sizeof(m_className)) ||
                !strncmp((const char*)m_className, (const char*)L"ApplicationFrameWindow", sizeof(m_className)) ||
                !strncmp((const char*)m_className, (const char*)L"Frame Alternate Owner", sizeof(m_className)) 
             ;
     }
-
+    int DecreaseMetroDeleteCounter();
     void OnDelayUpdate();
 
     static void SetTag(HWND hWnd, int val) { SetProp(hWnd, MAKEINTATOM(s_VDPropertyTag), (HANDLE)(val + 1)); }
@@ -257,6 +258,7 @@ protected:
     HidingMethod * m_hidingMethod;
     int m_hidingMethodData;
     HANDLE m_hHideMutex;		//used to prevent hiding & showing at the same time if switching quickly to a desktop and back to the first
+    int m_metroDeleteCounter;
 
     static HidingMethodHide       s_hider_method;
     static HidingMethodMinimize   s_minimizer_method;

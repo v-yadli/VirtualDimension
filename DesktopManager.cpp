@@ -55,6 +55,10 @@ DesktopManager::DesktopManager(int width, int height)
    m_hPreviewWindowFont = CreateFontIndirect(&m_lfPreviewWindowFontInfo);
    m_crPreviewWindowFontColor = settings.LoadSetting(Settings::PreviewWindowFontColor);
 
+   // TODO this is hard-coded
+   m_hPreviewWindowMissingIconFont = CreateFont(6, 4, 0, 0, FW_NORMAL, 0, 0, 0, DEFAULT_CHARSET, OUT_OUTLINE_PRECIS,
+                                                CLIP_DEFAULT_PRECIS, NONANTIALIASED_QUALITY, FF_MODERN, _T("Terminal"));
+
    //Load the desktops
    LoadDesktops();
 

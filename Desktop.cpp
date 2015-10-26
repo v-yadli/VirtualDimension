@@ -190,10 +190,18 @@ void Desktop::Draw(HDC hDc)
    //Print desktop name in the middle
    _stprintf_s(buffer, _countof(buffer), TEXT("%.19s"), m_name);
    SetBkMode(hDc, TRANSPARENT);
+
    DrawText(hDc, buffer, -1, &m_rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+   HGDIOBJ original_font_obj = SelectObject(hDc, deskMan->GetPreviewWindowMissingIconFont());
 
    //Draw a frame around the desktop
-   FrameRect(hDc, &m_rect, (HBRUSH)GetStockObject(BLACK_BRUSH));
+
+   RECT frame_rect = m_rect;
+   frame_rect.top -= 2;
+   frame_rect.left -= 2;
+   frame_rect.right += 3;
+   frame_rect.bottom += 2;
+   FrameRect(hDc, &frame_rect, (HBRUSH)GetStockObject(BLACK_BRUSH));
 
    //Draw icons for each window
    WindowsManager::Iterator it;
@@ -206,6 +214,8 @@ void Desktop::Draw(HDC hDc)
    {
       Window * win = it;
       HICON hIcon;
+      TCHAR* win_title;
+      int win_title_len;
 
       //Mark obsolete windows for removal
       if (!win->CheckExists())
@@ -218,17 +228,56 @@ void Desktop::Draw(HDC hDc)
       if (!win->IsOnDesk(this))
          continue;
 
-      if (win->IsMetroApp())
-      {
-          obsoleteWindowsList.push_front(win);
-          continue;
-      }
-
       //Draw the window's icon
-      hIcon = win->GetIcon();
+      hIcon         = win->GetIcon();
+      // If icon is null, we draw some text.
       if (hIcon == NULL)
       {
-          //It should not be NULL. Let's mark it obsolete...
+          win_title     = win->GetText();
+          if (win_title) { win_title_len = lstrlen(win_title); }
+
+          if (!win_title || !win_title_len)
+          {
+              if (win->IsMetroApp() && win->DecreaseMetroDeleteCounter() <= 0)
+              {
+                  // no title and no icon. mark to delete.
+                  obsoleteWindowsList.push_front(win);
+                  continue;
+              }
+          }
+
+
+          RECT textRect;
+          textRect.left   = x;
+          textRect.top    = y;
+          textRect.right  = x + 16;
+          textRect.bottom = y + 16;
+          SelectObject(hDc, deskMan->GetPreviewWindowMissingIconFont());
+          FrameRect(hDc, &textRect, (HBRUSH)GetStockObject(GRAY_BRUSH));
+
+          //TODO hard coded
+          DrawText(hDc, win_title, 4, &textRect, DT_LEFT);
+
+          if (win_title_len > 4)
+          {
+              textRect.top += 6;
+              DrawText(hDc, win_title + 4, 4, &textRect, DT_LEFT);
+          }
+
+          if (win_title_len > 8)
+          {
+              textRect.top += 6;
+              DrawText(hDc, win_title + 8, 4, &textRect, DT_LEFT);
+          }
+      }
+
+      if (hIcon != NULL && win->IsMetroApp())
+      {
+          // An metro app has two entries in the window list:
+          // One with a default icon and one with NULL icon.
+          // The non-NULL one will only appear when the Metro
+          // app is minimized or closed.
+          // So here we delete the one with the default icon.
           obsoleteWindowsList.push_front(win);
           continue;
       }
@@ -242,6 +291,9 @@ void Desktop::Draw(HDC hDc)
          y += 16;
       }
    }
+
+   // restore font obj
+   SelectObject(hDc, original_font_obj);
 
    //Remove windows flagged as obsolete
    for(list<Window*>::iterator i = obsoleteWindowsList.begin();

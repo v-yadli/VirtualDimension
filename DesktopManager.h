@@ -82,6 +82,7 @@ public:
 
    void ChoosePreviewWindowFont(HWND hDlg);
    HFONT GetPreviewWindowFont()               { return m_hPreviewWindowFont; }
+   HFONT GetPreviewWindowMissingIconFont()    { return m_hPreviewWindowMissingIconFont; }
    COLORREF GetPreviewWindowFontColor()       { return m_crPreviewWindowFontColor; }
 
    LONG GetWindowWidth() const                { return m_width; }
@@ -166,6 +167,7 @@ protected:
    BackgroundDisplayMode * m_bkDisplayMode;
 
    HFONT m_hPreviewWindowFont;
+   HFONT m_hPreviewWindowMissingIconFont;
    LOGFONT m_lfPreviewWindowFontInfo;
    COLORREF m_crPreviewWindowFontColor;
 };

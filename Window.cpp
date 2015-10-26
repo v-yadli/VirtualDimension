@@ -109,6 +109,7 @@ Window::Window(HWND hWnd): AlwaysOnTop(hWnd), m_hWnd(hWnd), m_hOwnedWnd(GetOwned
 
    //Delay-update
    winMan->ScheduleDelayedUpdate(this);
+   m_metroDeleteCounter = 10;
 }
 
 Window::~Window(void)
@@ -243,11 +244,12 @@ HICON Window::GetIcon(void)
    if (m_hDefaulIcon)
       return m_hDefaulIcon;
 
-   //No default icon yet: get it from application file, or use generic default icon
+   //No default icon yet: get it from application file, or return null;
    TCHAR lpFileName[256];
    PlatformHelper::GetWindowFileName(m_hWnd, lpFileName, 256);
    if (!ExtractIconEx(lpFileName, 0, NULL, &m_hDefaulIcon, 1))
-      m_hDefaulIcon = (HICON) LoadImage(vdWindow, MAKEINTRESOURCE(IDI_DEFAPP_SMALL), IMAGE_ICON, 16, 16, LR_SHARED);
+       m_hDefaulIcon = NULL;
+       //(HICON) LoadImage(vdWindow, MAKEINTRESOURCE(IDI_DEFAPP_SMALL), IMAGE_ICON, 16, 16, LR_SHARED);
 
    return m_hDefaulIcon;
 }
@@ -655,3 +657,9 @@ void Window::OnFlashBallonClick(BalloonNotification::Message /*msg*/, int data)
       wnd->Activate();
    }
 }
+
+int Window::DecreaseMetroDeleteCounter()
+{
+    return --m_metroDeleteCounter;
+}
+
